@@ -489,11 +489,11 @@ export default function AdminOrders() {
                         <span className="text-lg font-serif font-bold text-primary">₹{Number(order.total_price).toFixed(0)}</span>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="flex items-center justify-between gap-2 mt-3">
                         {order.status !== 'completed' && (
                           <Button
                             onClick={() => updateStatus(order.id, order.status)}
-                            className="col-span-1 rounded-xl font-bold uppercase tracking-wider text-[10px]"
+                            className="flex-1 rounded-xl font-bold uppercase tracking-wider text-[10px]"
                             variant={order.status === 'ready' ? 'secondary' : 'default'}
                           >
                             {order.status === 'new' ? 'Start Prep' :
@@ -503,39 +503,7 @@ export default function AdminOrders() {
                           </Button>
                         )}
 
-                        {(order.status === 'served' || order.status === 'ready') && (
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                variant="outline"
-                                className="col-span-1 border-2 rounded-xl font-bold uppercase tracking-wider text-[10px]"
-                              >
-                                <Printer className="mr-1 h-3 w-3" /> Invoice
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent className="w-40">
-                              <DropdownMenuItem onClick={() => handleGenerateInvoice(order, 'cash')}>
-                                <Banknote className="mr-2 h-4 w-4" /> Cash
-                              </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => handleGenerateInvoice(order, 'upi')}>
-                                <Smartphone className="mr-2 h-4 w-4" /> UPI
-                              </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => handleGenerateInvoice(order, 'card')}>
-                                <CreditCard className="mr-2 h-4 w-4" /> Card
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        )}
-                      </div>
-
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex flex-col">
-                          <span className="text-sm font-bold">{order.customer_name || 'Walk-in'}</span>
-                          {order.customer_phone && (
-                            <span className="text-xs text-muted-foreground font-mono">📞 {order.customer_phone}</span>
-                          )}
-                        </div>
-                        <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-muted">
+                        <span className="text-xs font-medium px-3 py-2 rounded-full bg-muted">
                           {order.status}
                         </span>
                       </div>
